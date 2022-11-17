@@ -1,0 +1,46 @@
+<!-- Page content-->
+<div class="container">
+    <div class="text-center mt-5">
+        <h1>À la une !</h1>
+        <p class="lead">Pleins de nouveau article chaque jours !</p>
+        <p>Identifier-vous et créer le votre dès aujourd'hui !</p>
+    </div>
+
+    {% if session.notification %}
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-{{ session.notification.result }}" role="alert">
+                    {{ session.notification.message }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{# Affichage des articles en "carte" #}
+<div class="row">
+        {% for articles in ListeArticles %}
+            <div class="col-6 mb-4">
+                <div class="card">
+                    <img src='img/{{ articles.getId }}.jpg' style="max-width: 200px;" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{articles.getTitre}}</h5>
+                        <p class="card-text">{{articles.getTexte}}</p>
+                        <p class="card-text">{{articles.getDate}}</p>
+                        <a href="articles.php?id={{articles.getId}}" class="btn btn-primary">Modifier l'article</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+</div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% for index in 1..nbPages %}
+                <!-- Lien vers chacune des pages -->
+                <li class="page-item" {% if index %}active{% endif %}>
+                <a class="page-link" href="index.php?page={{ index }}">{{ index }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
