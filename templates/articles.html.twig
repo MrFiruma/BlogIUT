@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="text-center mt-5">
+        <h1>ARTICLES</h1>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form id="articleForm" method="POST" action="articles.php" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="hidden" name="id" class="form-control" value="<?= $id ?>" id="id">
+            </div>
+            <div class="mb-3">
+                <label for="titre" class="form-label">Titre</label>
+                <input type="text" name="titre" class="form-control" value="<?= $titre ?>" id="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="textarea" class="form-label">Texte</label>
+                <textarea class="form-control" id="textarea" rows="4" name="texte" required><?= $texte ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Image article</label>
+                <input class="form-control" name="image" type="file" id="formFile">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" name="checkbox" class="form-check-input" id="Check1">
+                <label class="form-check-label" for="Check1">Publier ? O/N </label>
+            </div>
+            <button type="submit" name="submit" value="ajouter" class="btn btn-primary">Soumettre</button>
+            </form>
+        </div>
+    </div>
+</div>

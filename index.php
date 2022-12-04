@@ -43,7 +43,7 @@ echo $twig->render('index.html.twig',
                 'nbPages' => $nbPages,
                 'page' => $page
             ]);
-unset ($_SESSION['notiication']);
+unset ($_SESSION['notification']);
     
 include './includes/script.inc.php'; 
 ?>

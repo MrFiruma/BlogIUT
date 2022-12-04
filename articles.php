@@ -1,16 +1,19 @@
-<?php require './config/init.conf.php'; ?>
+<?php 
+require './config/init.conf.php';
+include './includes/header.inc.php'; 
+include './includes/nav.inc.php'; 
 
-<?php include './includes/header.inc.php'; ?>
-    <!-- Responsive navbar-->
-<?php include './includes/nav.inc.php'; ?>
-
-<?php
-
+/**
+ * Création des variables
+ */
 $articles = new articles();
 $articles->hydrate($_POST);
 $articles->setDate(date('Y-m-d'));
 $articlesManager = new articlesManager($bdd);
 
+/**
+ * Vérification par POST si un ID est présent
+ */
 if (empty ($_POST['id'])) {
     $id = '';
     $titre = '';
@@ -23,7 +26,9 @@ if (empty ($_POST['id'])) {
     // print_r2($id,$titre,$texte);
 }
 
-
+/**
+ * On récupère les information de l'article avec l'id de l'url
+ */
 if (!empty($_GET['id'])) {
     // On détermine sur quelle id on se trouve
     $id = $_GET['id'];
@@ -35,6 +40,11 @@ if (!empty($_GET['id'])) {
     // print_r2($articleID);
 }
 
+/**
+ * On détermine si oui ou non il y a un id dans l'url
+ *  Oui : on modifie l'article
+ *  Non : on ajoute un nouvel article
+ */
 if (!empty($_POST['submit'])) {
     if ($id == '') {
     //print_r2($_POST);

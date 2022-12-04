@@ -1,10 +1,12 @@
-<?php require './config/init.conf.php'; ?>
-<?php require './config/check-connected.php'; ?>
-<?php include './includes/header.inc.php'; ?>
-<!-- Responsive navbar-->
-<?php include './includes/nav.inc.php'; ?>
+<?php 
+require './config/init.conf.php'; 
+require './config/check-connected.php';
+include './includes/header.inc.php';
+include './includes/nav.inc.php';
+require_once './vendor/autoload.php';
 
-<?php
+$loader = new \Twig\Loader\FilesystemLoader('templates/');
+$twig = new \Twig\Environment($loader, ['debug'=>true]);
 
 if (!empty($_POST['submit'])) {
     //echo 'le formulaire est posté';
@@ -49,44 +51,10 @@ if (!empty($_POST['submit'])) {
     }
 }
 
-?>
+echo $twig->render('connect.html.twig',
+            [
+                'session' => $_SESSION
+            ]);
 
-<?php
-    if (isset($_SESSION['notification'])) {
-    ?>
-        <div class="row">
-            <div class="col-12">
-                <div class="alert alert-<?= $_SESSION['notification']['result'] ?>" role="alert">
-                    <?= $_SESSION['notification']['message'] ?>
-                    <?php unset($_SESSION['notification']) ?>
-                </div>
-            </div>
-        </div>
-    <?php
-    }
-    ?>
 
-<div class="container">
-    <div class="text-center mt-5">
-        <h1>connection</h1>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <form id="articleForm" method="POST" action="connect.php" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" value="" id="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="mdp" class="form-label">Mot de passe</label>
-                    <input type="password" name="mdp" class="form-control" value="" id="mdp" required>
-                </div>
-                <button type="submit" name="submit" value="ajouter" class="btn btn-primary">Soumettre</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
-
-<?php include './includes/script.inc.php'; ?>
+include './includes/script.inc.php'; ?>

@@ -139,6 +139,12 @@ class utilisateursManager
         return $this;
     }
 
+    /**
+     * Fonction qui récupère les données utilisateur en fonction de son Email
+     *
+     * @param string $email
+     * @return utilisateurs
+     */
     public function getByEmail(string $email): utilisateurs
     {
         /** Prépare une requête select avec une clause WHERE selon l'id */
@@ -160,6 +166,12 @@ class utilisateursManager
         return $utilisateurs;
     }
 
+    /**
+     * fonction qui permet de récupérer les infos utilisateurs en fonction de son SID
+     *
+     * @param string $sid
+     * @return utilisateurs
+     */
     public function getBySid(string $sid): utilisateurs
     {
         /** Prépare une requête select avec une clause WHERE selon l'id */

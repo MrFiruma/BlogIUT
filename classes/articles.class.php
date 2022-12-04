@@ -34,6 +34,18 @@ class articles {
 
     /**
      * 
+     * @var string
+     */
+    public bool $prenom;
+
+    /**
+     * 
+     * @var string
+     */
+    public bool $commentaire;
+
+    /**
+     * 
      * @return int|null
      */
     public function getId(): ?int {
@@ -70,6 +82,22 @@ class articles {
      */
     public function getPublie(): bool {
         return $this->publie;
+    }
+    
+    /**
+     * 
+     * @return bool
+     */
+    public function getPrenom(): string {
+        return $this->prenom;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function getCommentaire(): string {
+        return $this->commentaire;
     }
 
     /**
@@ -119,6 +147,26 @@ class articles {
 
     /**
      * 
+     * @param string $texte
+     * @return self
+     */
+    public function setPrenom(string $prenom): self {
+        $this->prenom = $prenom;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $texte
+     * @return self
+     */
+    public function setCommentaire(string $commentaire): self {
+        $this->commentaire = $commentaire;
+        return $this;
+    }
+
+    /**
+     * 
      * @param array $donnees
      * @return self
      */
@@ -129,7 +177,6 @@ class articles {
         } else {
             $this->setId(null);
         }
-
         if (!empty($donnees['titre'])) {
             $this->setTitre($donnees['titre']);
         } else {

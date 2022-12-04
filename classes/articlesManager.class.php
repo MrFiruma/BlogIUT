@@ -106,6 +106,13 @@ class articlesManager {
         $this->setBdd($bdd);
     }
 
+    // Fonction qui permet de récuperer l'objet article en fonction de son ID
+    /**
+     * Fonction qui permet de récupérer l'objet article en fonction de son ID
+     *
+     * @param integer $id
+     * @return void
+     */
     public function getListId(int $id) {
         // Prépare une requête de type SELECT avec une clause WHERE selon l'id
         $sql = 'SELECT * FROM articles WHERE id = :id';
@@ -180,6 +187,37 @@ class articlesManager {
         return $this;
     }
 
+    /**
+     * fonction qui ajoute un commentaire à l'article
+     *
+     * @param articles $articles
+     * @return void
+     */
+    public function addComm(articles $articles) {
+        $sql = "UPDATE articles SET "
+                . "prenom = :prenom, "
+                . "commentaire = :commentaire, ";
+        $req = $this->bdd->prepare($sql);
+        //Sécurisation les variables
+        $req->bindValue(':prenom', $articles->getPrenom(), PDO::PARAM_STR);
+        $req->bindValue(':commentaire', $articles->getCommentaire(), PDO::PARAM_STR);
+        //Exécuter la requête
+        $req->execute();
+        if ($req->errorCode() == 00000) {
+            $this->_result = true;
+            // $this->_getLastInsertId = $articles->getId();
+        } else {
+            $this->_result = false;
+        }
+        return $this;
+    }
+
+    /**
+     * Fonction qui met à jour un article en BDD
+     *
+     * @param articles $articles
+     * @return void
+     */
     public function update(articles $articles) {
         $sql = "UPDATE articles SET "
                 . "titre = :titre, "
@@ -203,7 +241,28 @@ class articlesManager {
         return $this;
     }
 
-        /**
+    /**
+     * fonction qui supprime un article
+     *
+     * @param articles $articles
+     * @return void
+     */
+    public function delete(articles $articles) {
+        $sql = "DELETE FROM articles WHERE id = :id";
+        $req = $this->bdd->prepare($sql);
+        $req->bindValue(':id', $articles->getId(), PDO::PARAM_STR);
+        $req->execute();
+        //execution de la requête
+        if ($req->errorCode() == 00000) {
+            $this->_result = true;
+            // $this->_getLastInsertId = $articles->getId();
+        } else {
+            $this->_result = false;
+        }
+        return $this;
+    }
+
+    /**
      * 
      * @return int
      */
@@ -253,6 +312,12 @@ class articlesManager {
         return $listArticle;
     }
 
+    /**
+     * Fonction qui récupère la liste d'article selon un mot clé
+     *
+     * @param [type] $recherche
+     * @return void
+     */
     public function getListArticlesFromRecherche($recherche) {
         $listArticle = [];
 
